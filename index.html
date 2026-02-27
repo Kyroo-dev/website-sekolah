@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fairuzazhar | SMKN 3 Buduran</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] },
+                    colors: {
+                        primary: '#050b14',
+                        secondary: '#1e293b',
+                        accent: '#00f0ff',
+                        purple: '#bd00ff',
+                        success: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-primary text-slate-200 antialiased overflow-x-hidden selection:bg-accent selection:text-black loading">
+
+    <div class="preloader fixed inset-0 z-[9999] bg-primary flex flex-col items-center justify-center text-accent">
+        <div class="font-mono text-4xl md:text-6xl font-bold mb-4 tracking-tighter">
+            <span id="counter">0</span>%
+        </div>
+        <div class="w-64 h-1 bg-secondary rounded-full overflow-hidden">
+            <div id="progress-bar" class="h-full bg-accent w-0"></div>
+        </div>
+        <div class="mt-4 font-mono text-xs text-slate-500 animate-pulse tracking-widest uppercase">
+            System Initializing...
+        </div>
+    </div>
+
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="absolute inset-0 moving-grid opacity-20"></div>
+        <canvas id="particle-canvas" class="absolute inset-0 w-full h-full"></canvas>
+    </div>
+
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-primary/80 backdrop-blur-sm transition-transform duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="font-display font-bold text-xl tracking-wider text-white flex items-center gap-2 z-50 relative">
+                <div class="w-3 h-3 bg-accent animate-pulse rounded-full"></div> SMK<span class="text-accent">FT</span>
+            </div>
+
+            <div class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
+                <a href="#home" class="hover:text-accent transition-colors">Beranda</a>
+                <a href="#jurusan" class="hover:text-accent transition-colors">Jurusan</a>
+                <a href="struktur.html" class="hover:text-accent transition-colors">Struktur</a>
+                <a href="#demokrasi" class="hover:text-accent transition-colors">Demokrasi</a>
+                <a href="#saran" class="hover:text-accent transition-colors">Saran</a>
+                <a href="#creator" class="hover:text-accent transition-colors">Creator</a>
+            </div>
+
+            <button class="btn-daftar hidden md:block bg-accent text-black px-6 py-2 rounded-sm font-bold text-sm hover:bg-white hover:shadow-[0_0_15px_rgba(0,240,255,0.5)] transition-all">
+                DAFTAR
+            </button>
+
+            <button id="menu-btn" class="md:hidden z-50 text-white focus:outline-none">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="fixed inset-0 bg-primary z-40 flex flex-col justify-center items-center gap-8 opacity-0 pointer-events-none transition-all duration-300">
+            <a href="#home" class="mobile-link text-2xl font-display font-bold text-white hover:text-accent">Beranda</a>
+            <a href="#jurusan" class="mobile-link text-2xl font-display font-bold text-white hover:text-accent">Jurusan</a>
+            <a href="struktur.html" class="mobile-link text-2xl font-display font-bold text-white hover:text-accent">Struktur Kelas</a>
+            <a href="#demokrasi" class="mobile-link text-2xl font-display font-bold text-white hover:text-accent">Demokrasi</a>
+            <a href="#saran" class="mobile-link text-2xl font-display font-bold text-white hover:text-accent">Saran</a>
+            <a href="#creator" class="mobile-link text-2xl font-display font-bold text-white hover:text-accent">Creator</a>
+            <button class="btn-daftar mt-4 bg-accent text-black px-8 py-3 rounded-sm font-bold text-lg">DAFTAR SEKARANG</button>
+        </div>
+    </nav>
+
+    <main class="relative z-10">
+        <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 px-4">
+            <div class="text-center max-w-5xl mx-auto relative">
+                <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 border border-accent/30 rounded-full bg-accent/5">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
+                    <span class="text-xs font-mono text-accent tracking-widest">PENDAFTARAN DIBUKA</span>
+                </div>
+                
+                <h1 class="hero-title text-5xl md:text-8xl lg:text-9xl font-display font-bold leading-[0.9] tracking-tighter mb-6 text-white relative opacity-0">
+                    <span class="glitch" data-text="FUTURE">FUTURE</span><br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple">READY</span> SCHOOL
+                </h1>
+
+                <p class="hero-subtitle text-base md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 px-4 opacity-0">
+                    Sekolah Pusat Keunggulan. Menguasai <span class="text-accent">Coding</span>, <span class="text-purple">Networking</span>, & <span class="text-pink-500">Multimedia</span>.
+                </p>
+
+                <div class="flex flex-col md:flex-row gap-4 justify-center items-center hero-btn px-6 opacity-0">
+                    <a href="#jurusan" class="w-full md:w-auto px-8 py-4 bg-white/5 border border-white/10 hover:border-accent hover:bg-accent/10 hover:text-accent transition-all duration-300 font-mono text-sm tracking-wider text-center">
+                        [ JELAJAHI ]
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div class="w-full bg-accent text-black font-display font-bold text-xl md:text-4xl py-3 md:py-4 overflow-hidden border-y-4 border-black transform -rotate-1 origin-left z-20 relative">
+            <div class="marquee-content whitespace-nowrap">
+                PENERIMAAN PESERTA DIDIK BARU • TKJ • RPL • MULTIMEDIA • DIGITAL MARKETING • ROBOTICS • PENERIMAAN PESERTA DIDIK BARU •
+            </div>
+        </div>
+
+        <section id="jurusan" class="py-20 md:py-32 relative">
+            <div class="max-w-7xl mx-auto px-6 mb-12 flex flex-col md:flex-row justify-between items-end gap-4">
+                <div>
+                    <h2 class="text-4xl md:text-7xl font-display font-bold mb-2">KOMPETENSI</h2>
+                    <p class="text-accent font-mono">/ PILIHAN JURUSAN</p>
+                </div>
+                <div class="hidden md:block w-1/3 h-[1px] bg-white/20 mb-4"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="tkj.html" class="card group relative block bg-secondary border border-white/5 hover:border-accent/50 p-6 md:p-8 transition-all duration-300 hover:-translate-y-2 cursor-pointer rounded-xl">
+                    <div class="absolute inset-0 bg-accent/5 scale-y-0 group-hover:scale-y-100 transition-transform origin-bottom duration-500 ease-out rounded-xl"></div>
+                    <div class="relative z-10 flex flex-col h-full">
+                        <i data-lucide="network" class="w-10 h-10 md:w-12 md:h-12 text-accent mb-6"></i>
+                        <h3 class="text-xl md:text-2xl font-display font-bold mb-2">TKJ / Cloud</h3>
+                        <p class="text-slate-400 text-sm mb-6 flex-grow">Ahli infrastruktur jaringan, fiber optic, dan cloud server administration.</p>
+                        <span class="text-accent text-xs font-mono group-hover:underline inline-block mt-auto">LIHAT KURIKULUM -></span>
+                    </div>
+                </a>
+                <a href="rpl.html" class="card group relative block bg-secondary border border-white/5 hover:border-purple/50 p-6 md:p-8 transition-all duration-300 hover:-translate-y-2 cursor-pointer rounded-xl">
+                    <div class="absolute inset-0 bg-purple/5 scale-y-0 group-hover:scale-y-100 transition-transform origin-bottom duration-500 ease-out rounded-xl"></div>
+                    <div class="relative z-10 flex flex-col h-full">
+                        <i data-lucide="terminal-square" class="w-10 h-10 md:w-12 md:h-12 text-purple mb-6"></i>
+                        <h3 class="text-xl md:text-2xl font-display font-bold mb-2">RPL / Software</h3>
+                        <p class="text-slate-400 text-sm mb-6 flex-grow">Fullstack web developer, mobile apps, dan pengembangan game.</p>
+                        <span class="text-purple text-xs font-mono group-hover:underline inline-block mt-auto">LIHAT KURIKULUM -></span>
+                    </div>
+                </a>
+                <a href="dkv.html" class="card group relative block bg-secondary border border-white/5 hover:border-pink-500/50 p-6 md:p-8 transition-all duration-300 hover:-translate-y-2 cursor-pointer rounded-xl">
+                    <div class="absolute inset-0 bg-pink-500/5 scale-y-0 group-hover:scale-y-100 transition-transform origin-bottom duration-500 ease-out rounded-xl"></div>
+                    <div class="relative z-10 flex flex-col h-full">
+                        <i data-lucide="video" class="w-10 h-10 md:w-12 md:h-12 text-pink-500 mb-6"></i>
+                        <h3 class="text-xl md:text-2xl font-display font-bold mb-2">DKV / Creative</h3>
+                        <p class="text-slate-400 text-sm mb-6 flex-grow">Desain grafis, videografi, 3D modelling, dan broadcasting.</p>
+                        <span class="text-pink-500 text-xs font-mono group-hover:underline inline-block mt-auto">LIHAT KURIKULUM -></span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section id="fasilitas" class="py-20 border-t border-white/10 bg-black overflow-hidden">
+            <div class="px-6 mb-12">
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-white"><span class="text-purple">#</span> FASILITAS</h2>
+            </div>
+            <div class="flex gap-4 px-6 w-max facilities-wrapper md:w-max overflow-x-auto md:overflow-visible pb-8 md:pb-0 snap-x snap-mandatory">
+                <div class="w-[85vw] md:w-[600px] aspect-video bg-secondary relative group overflow-hidden border border-white/10 shrink-0 snap-center rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1000&auto=format&fit=crop" class="object-cover w-full h-full opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                    <div class="absolute bottom-4 left-4 bg-black/80 px-4 py-1 text-accent font-mono text-sm border-l-2 border-accent">LABORATORIUM MAC</div>
+                </div>
+                <div class="w-[85vw] md:w-[600px] aspect-video bg-secondary relative group overflow-hidden border border-white/10 shrink-0 snap-center rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=1000&auto=format&fit=crop" class="object-cover w-full h-full opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                    <div class="absolute bottom-4 left-4 bg-black/80 px-4 py-1 text-purple font-mono text-sm border-l-2 border-purple">VR EXPERIENCE ROOM</div>
+                </div>
+                <div class="w-[85vw] md:w-[600px] aspect-video bg-secondary relative group overflow-hidden border border-white/10 shrink-0 snap-center rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop" class="object-cover w-full h-full opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                    <div class="absolute bottom-4 left-4 bg-black/80 px-4 py-1 text-pink-500 font-mono text-sm border-l-2 border-pink-500">CYBER SECURITY CENTER</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="demokrasi" class="py-20 md:py-32 relative bg-secondary/20 border-t border-white/10">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="mb-12 text-center md:text-left">
+                    <div class="inline-block px-3 py-1 mb-4 border border-success/30 rounded-full bg-success/5">
+                        <span class="text-xs font-mono text-success tracking-widest animate-pulse">VOTING LIVE</span>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-2">DEMOKRASI SISWA</h2>
+                    <p class="text-slate-400">Gunakan hak suaramu untuk memilih Ketua OSIS periode 2025/2026.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="group relative bg-primary border border-white/10 rounded-2xl p-6 md:p-8 hover:border-success/50 transition-all duration-300">
+                        <div class="absolute top-4 right-4 text-6xl font-display font-bold text-white/5 group-hover:text-success/10 transition-colors">01</div>
+                        <div class="flex flex-col md:flex-row gap-6 items-center md:items-start mb-6">
+                            <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-white/20 group-hover:border-success transition-colors">
+                                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=300&auto=format&fit=crop" class="w-full h-full object-cover">
+                            </div>
+                            <div class="text-center md:text-left">
+                                <h3 class="text-2xl font-display font-bold text-white">Budi & Siti</h3>
+                                <p class="text-success font-mono text-sm mb-2">Kandidat Ketua & Wakil</p>
+                                <p class="text-slate-500 text-sm italic">"Mewujudkan OSIS yang Cerdas, Kreatif, dan Berakhlak Mulia."</p>
+                            </div>
+                        </div>
+                        <button onclick="vote('01', 'Budi & Siti')" class="w-full py-3 bg-white/5 border border-white/10 text-white font-bold rounded hover:bg-success hover:text-black hover:border-success transition-all duration-300 flex justify-center items-center gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i> VOTE PASLON 01
+                        </button>
+                    </div>
+                    <div class="group relative bg-primary border border-white/10 rounded-2xl p-6 md:p-8 hover:border-purple/50 transition-all duration-300">
+                        <div class="absolute top-4 right-4 text-6xl font-display font-bold text-white/5 group-hover:text-purple/10 transition-colors">02</div>
+                        <div class="flex flex-col md:flex-row gap-6 items-center md:items-start mb-6">
+                            <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-white/20 group-hover:border-purple transition-colors">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop" class="w-full h-full object-cover">
+                            </div>
+                            <div class="text-center md:text-left">
+                                <h3 class="text-2xl font-display font-bold text-white">Andi & Rina</h3>
+                                <p class="text-purple font-mono text-sm mb-2">Kandidat Ketua & Wakil</p>
+                                <p class="text-slate-500 text-sm italic">"Sekolah Maju, Siswa Bermutu, Prestasi Nomor Satu."</p>
+                            </div>
+                        </div>
+                        <button onclick="vote('02', 'Andi & Rina')" class="w-full py-3 bg-white/5 border border-white/10 text-white font-bold rounded hover:bg-purple hover:text-white hover:border-purple transition-all duration-300 flex justify-center items-center gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i> VOTE PASLON 02
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="saran" class="py-20 relative bg-primary border-t border-white/10">
+            <div class="max-w-3xl mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4">SUARA SISWA</h2>
+                <p class="text-slate-400 mb-8">Punya ide, keluhan, atau saran membangun? Kirimkan secara langsung ke Database Kelas.</p>
+                <div class="bg-secondary/30 border border-white/10 rounded-2xl p-8 backdrop-blur-sm">
+                    <form id="feedback-form" class="space-y-4 text-left">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-mono text-accent mb-1 uppercase">Nama (Opsional)</label>
+                                <input type="text" id="fb-nama" class="w-full bg-primary/50 border border-white/10 rounded p-3 text-white focus:border-accent focus:outline-none transition-all" placeholder="Boleh dikosongi">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-accent mb-1 uppercase">Kelas</label>
+                                <input type="text" id="fb-kelas" class="w-full bg-primary/50 border border-white/10 rounded p-3 text-white focus:border-accent focus:outline-none transition-all" placeholder="Contoh: XI TKJ 1" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-accent mb-1 uppercase">Pesan / Kritik / Saran</label>
+                            <textarea id="fb-pesan" rows="4" class="w-full bg-primary/50 border border-white/10 rounded p-3 text-white focus:border-accent focus:outline-none transition-all" placeholder="Tulis masukanmu disini..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-accent text-black font-bold rounded hover:bg-white hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all flex justify-center items-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i> KIRIM MASUKAN
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="creator" class="py-20 md:py-32 relative bg-primary overflow-hidden border-t border-white/5">
+            <div class="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-purple/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+            <div class="max-w-5xl mx-auto px-6 relative z-10">
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 border border-white/10 bg-white/5 backdrop-blur-sm p-8 md:p-12 rounded-3xl profile-card hover:border-white/20 transition-all duration-500 text-center md:text-left">
+                    <div class="relative group mx-auto md:mx-0">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-accent to-purple rounded-full blur opacity-40 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <img src="profil 1.jpeg" alt="Creator Profile" class="relative w-32 h-32 md:w-48 md:h-48 rounded-full object-cover border-4 border-white/10 shadow-2xl z-10 grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-105">
+                    </div>
+                    <div class="flex-1">
+                        <div class="inline-block px-3 py-1 mb-4 border border-white/20 rounded-full bg-black/30">
+                            <span class="text-xs font-mono text-accent tracking-widest">XI - TKJ 1</span>
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-2">Fairuz Azhar Al Baihaqi</h2>
+                        <p class="text-purple font-mono mb-6">siswa SMKN 3 BUDURAN</p>
+                        <p class="text-slate-400 mb-8 max-w-lg leading-relaxed text-sm md:text-base">"tidak ada kata mustahil bagi mereka yang mau mencoba"</p>
+                        <div class="flex justify-center md:justify-start gap-4">
+                            <a href="https://github.com/Kyroo-dev" class="px-6 py-2 border border-white/20 rounded-lg hover:bg-white hover:text-black transition-all duration-300 font-bold text-sm flex items-center gap-2"><i data-lucide="github" class="w-4 h-4"></i> GitHub</a>
+                            <a href="https://www.instagram.com/piruzazhr?igsh=OGQ5ZDc2ODk2ZA==" target="_blank" class="px-6 py-2 border border-white/20 rounded-lg hover:bg-purple hover:text-white hover:border-purple transition-all duration-300 font-bold text-sm flex items-center gap-2"><i data-lucide="instagram" class="w-4 h-4"></i> Instagram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-12 border-t border-white/10 text-center bg-secondary relative overflow-hidden">
+            <h2 class="text-[12vw] font-display font-bold opacity-5 leading-none select-none">FUTURETECH</h2>
+            <div class="relative z-10 -mt-6 md:-mt-16">
+                <p class="text-white font-bold text-xs md:text-sm">&copy; fairuzazhar</p>
+            </div>
+        </footer>
+    </main>
+
+    <div id="modal-daftar" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="modal-backdrop"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="modal-content w-full max-w-md bg-secondary/90 border border-white/10 rounded-2xl p-8 relative transform scale-90 opacity-0 transition-all duration-300 shadow-[0_0_50px_rgba(0,240,255,0.2)]">
+                <button id="close-modal" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+                <h3 class="text-2xl font-display font-bold text-white mb-2">Formulir PPDB</h3>
+                <p class="text-slate-400 text-sm mb-6">Isi data diri kamu untuk terhubung dengan Admin.</p>
+                <form id="ppdb-form" class="space-y-4">
+                    <div><label class="block text-xs font-mono text-accent mb-1 uppercase">Nama Lengkap</label><input type="text" id="nama" class="w-full bg-primary/50 border border-white/10 rounded p-3 text-white focus:border-accent outline-none" required></div>
+                    <div><label class="block text-xs font-mono text-accent mb-1 uppercase">Asal Sekolah</label><input type="text" id="sekolah" class="w-full bg-primary/50 border border-white/10 rounded p-3 text-white focus:border-accent outline-none" required></div>
+                    <div>
+                        <label class="block text-xs font-mono text-accent mb-1 uppercase">Minat Jurusan</label>
+                        <select id="jurusan-pilih" class="w-full bg-primary/50 border border-white/10 rounded p-3 text-white focus:border-accent outline-none"><option value="TKJ">TKJ</option><option value="RPL">RPL</option><option value="DKV">DKV</option></select>
+                    </div>
+                    <button type="submit" class="w-full bg-accent text-black font-bold py-3 rounded mt-4 hover:bg-white flex justify-center items-center gap-2"><i data-lucide="send" class="w-4 h-4"></i> KIRIM KE WHATSAPP</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    <script src="script.js"></script>
+    
+    <script>
+        // ==========================================
+        // PASTE LINK URL GOOGLE APPS SCRIPT LU DISINI
+        // ==========================================
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzDZ56gS8hecEIkv-CZyIeaQQUOblLka-0M3EkRmjx7QsjIJbHVgv_OPYxiBmxJTCmW/exec'; 
+        
+        // 1. Logic Vote Paslon ke Spreadsheet
+        function vote(noPaslon, namaPaslon) {
+            const namaPemilih = prompt("Masukkan NAMA LENGKAP kamu sebagai validasi voting:");
+            
+            if (!namaPemilih) {
+                alert("Voting dibatalkan. Nama tidak boleh kosong!");
+                return;
+            }
+
+            const dataVote = new FormData();
+            dataVote.append('action', 'vote');
+            dataVote.append('nama', namaPemilih);
+            dataVote.append('paslon', `${noPaslon} - ${namaPaslon}`);
+
+            alert(`Sedang memproses suara untuk Paslon ${noPaslon}... Mohon tunggu sebentar.`);
+
+            // FIX: Tambahan mode: 'no-cors' agar tidak diblokir browser saat offline/local
+            fetch(scriptURL, { method: 'POST', body: dataVote, mode: 'no-cors' })
+                .then(response => {
+                    alert(`✅ Sukses! Terima kasih ${namaPemilih}, suara kamu untuk ${namaPaslon} berhasil masuk ke Database.`);
+                })
+                .catch(error => {
+                    alert("❌ Gagal mengirim data. Pastikan koneksi internet stabil.");
+                });
+        }
+
+        // 2. Logic Kritik Saran ke Spreadsheet
+        const feedbackForm = document.getElementById('feedback-form');
+        if(feedbackForm) {
+            feedbackForm.addEventListener('submit', (e) => {
+                e.preventDefault(); 
+                
+                const nama = document.getElementById('fb-nama').value || 'Anonim';
+                const kelas = document.getElementById('fb-kelas').value;
+                const pesan = document.getElementById('fb-pesan').value;
+                
+                const dataSaran = new FormData();
+                dataSaran.append('action', 'saran');
+                dataSaran.append('nama', nama);
+                dataSaran.append('kelas', kelas);
+                dataSaran.append('pesan', pesan);
+
+                const submitBtn = feedbackForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = "MENGIRIM...";
+
+                // FIX: Tambahan mode: 'no-cors' agar tidak diblokir browser saat offline/local
+                fetch(scriptURL, { method: 'POST', body: dataSaran, mode: 'no-cors' })
+                    .then(response => {
+                        alert("✅ Kritik dan Saran berhasil dikirim ke Database Admin!");
+                        feedbackForm.reset(); 
+                        submitBtn.innerHTML = originalText; 
+                    })
+                    .catch(error => {
+                        alert("❌ Gagal mengirim masukan. Coba lagi nanti.");
+                        submitBtn.innerHTML = originalText;
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

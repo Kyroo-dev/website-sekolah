@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Jurusan | DKV</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] },
+                    colors: {
+                        primary: '#050b14',
+                        secondary: '#1e293b',
+                        accent: '#00f0ff',
+                        pink: '#ec4899',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-primary text-slate-200 antialiased selection:bg-pink selection:text-white">
+
+    <nav class="fixed top-0 w-full z-50 py-6 px-6 mix-blend-difference">
+        <a href="index.html" class="flex items-center gap-2 text-white font-bold hover:text-pink transition-colors">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i> KEMBALI
+        </a>
+    </nav>
+
+    <main class="relative z-10">
+        <section class="relative h-[60vh] flex items-end pb-20 px-6 border-b border-white/10 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1542621334-a254cf47733d?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover opacity-20" alt="Creative">
+                <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent"></div>
+            </div>
+
+            <div class="relative z-10 max-w-7xl mx-auto w-full">
+                <div class="inline-block px-3 py-1 mb-4 border border-pink/30 rounded-full bg-pink/5">
+                    <span class="text-xs font-mono text-pink tracking-widest">PROGRAM KEAHLIAN</span>
+                </div>
+                <h1 class="text-5xl md:text-8xl font-display font-bold text-white mb-4 reveal-text">
+                    DESAIN KOMUNIKASI<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink to-purple-500">VISUAL</span>
+                </h1>
+            </div>
+        </section>
+
+        <section class="py-20 px-6">
+            <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-16">
+                <div class="md:col-span-2">
+                    <h3 class="text-2xl font-display font-bold text-white mb-6">Tentang Jurusan</h3>
+                    <p class="text-slate-400 leading-relaxed mb-6 text-lg">
+                        Jurusan Desain Komunikasi Visual (DKV) adalah tempat bagi siswa kreatif yang ingin menguasai seni digital. Di sini, imajinasi diubah menjadi karya visual yang bernilai jual tinggi.
+                    </p>
+                    <p class="text-slate-400 leading-relaxed mb-10 text-lg">
+                        Pembelajaran berfokus pada penguasaan software industri (Adobe Creative Suite), teknik fotografi/videografi profesional, hingga animasi 2D & 3D.
+                    </p>
+
+                    <h3 class="text-2xl font-display font-bold text-white mb-6">Materi Pembelajaran</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-4 p-4 border border-white/5 rounded-lg bg-secondary/30 hover:border-pink/30 transition-colors">
+                            <i data-lucide="pen-tool" class="text-pink mt-1 flex-shrink-0"></i>
+                            <div>
+                                <strong class="block text-white">Desain Grafis</strong>
+                                <span class="text-sm text-slate-500">Branding, Ilustrasi Digital, UI/UX Design (Adobe Illustrator/Photoshop/Indesign).</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 p-4 border border-white/5 rounded-lg bg-secondary/30 hover:border-pink/30 transition-colors">
+                            <i data-lucide="camera" class="text-pink mt-1 flex-shrink-0"></i>
+                            <div>
+                                <strong class="block text-white">Fotografi & Videografi</strong>
+                                <span class="text-sm text-slate-500">Teknik pengambilan gambar, Lighting, & Editing (Premiere Pro/After Effects/DaVinci).</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 p-4 border border-white/5 rounded-lg bg-secondary/30 hover:border-pink/30 transition-colors">
+                            <i data-lucide="box" class="text-pink mt-1 flex-shrink-0"></i>
+                            <div>
+                                <strong class="block text-white">Animasi & 3D</strong>
+                                <span class="text-sm text-slate-500">Motion Graphic, 3D Modelling (Blender/Maya), & Visual Effects.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="bg-secondary/50 border border-white/10 p-8 rounded-2xl sticky top-24">
+                        <h4 class="text-xl font-display font-bold text-white mb-6">Prospek Karir</h4>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-2 text-slate-300"><div class="w-1.5 h-1.5 bg-pink rounded-full"></div> Graphic Designer</li>
+                            <li class="flex items-center gap-2 text-slate-300"><div class="w-1.5 h-1.5 bg-pink rounded-full"></div> Content Creator</li>
+                            <li class="flex items-center gap-2 text-slate-300"><div class="w-1.5 h-1.5 bg-pink rounded-full"></div> Video Editor</li>
+                            <li class="flex items-center gap-2 text-slate-300"><div class="w-1.5 h-1.5 bg-pink rounded-full"></div> 3D Artist / Animator</li>
+                        </ul>
+                        <a href="index.html" class="block w-full text-center bg-pink text-white font-bold py-4 rounded hover:bg-white hover:text-black transition-colors">
+                            DAFTAR JURUSAN INI
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-10 border-t border-white/10 text-center text-slate-500 text-sm">
+            &copy; fairuzazhar.
+        </footer>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        lucide.createIcons();
+        gsap.from(".reveal-text", {
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+            delay: 0.2
+        });
+    </script>
+</body>
+</html>
